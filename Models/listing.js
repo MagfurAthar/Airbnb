@@ -9,7 +9,7 @@ const listingSchema = new Schema({
   image: {type: String,
     // default image if image not exists-----------------
     default: "https://unsplash.com/photos/blue-and-white-star-illustration-JpTY4gUviJM",
-    // default image if none is provided-----------------
+    // default image if none is provided., means image exists but it's link is empty-----------------
     set: (v) => (v) === "" ? "https://unsplash.com/photos/blue-and-white-star-illustration-JpTY4gUviJM" : v,
   },
   price: Number,
