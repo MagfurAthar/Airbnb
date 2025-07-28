@@ -1,94 +1,107 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wanderlust</title>
-</head>
+</head> -->
+
+<% layout('layouts/boilerplates') %>
 <body>
-    <h2>All Listings</h2>
-    <form method="GET" action="/listings/new">
+  <h2>Popular homes in Ranchi..</h2>
+  <!-- navebar included, that's why this ("Create New Listing") button is commented -->
+  <!-- <form method="GET" action="/listings/new">
         <button>Create New Listing</button>
-    </form>
-    <ul>
-        <% for(let listing of allListings) { %>
-            <li>
-                <h5> <a href="/listings/<%= listing._id %>"> <%= listing.title %></a></h5>
-                <!-- <p><%= listing.description %></p>
-                <p>Price: $<%= listing.price %></p>
-                <p>Location: <%= listing.location %></p> -->
-            </li>
-        <% } %>
-    </ul>
-    <hr>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h2 {
-            color: #333;
-        }
-        .listing {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .listing h3 {
-            margin-top: 0;
-        }
-        .add-listing, .back-to-home {
-            margin-top: 20px;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #777;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .footer a {
-            color: #007bff;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-    <div class="footer">
+    </form> -->
+
+  <div class="row row-cals-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let listing of allListings) { %>
+  <div class="card col" style="width: 18rem">
+    <img
+      src="<%= JSON.parse(listing.image).url %>"
+      class="card-img-top"
+      alt="Listing Image"
+    />
+    <div class="card-body">
+      <p class="card-text">
+        <%= listing.title %> <br/> &#8377;<%= listing.price.toLocaleString('en-IN') %>
+        for 2 nights.
+      </p>
+    </div>
+  </div>
+  <% } %>
+  </div>
+
+
+
+  <hr />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      /* background-color: pink; */
+    }
+    h2 {
+      color: #333;
+    }
+    .listing {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .listing h3 {
+      margin-top: 0;
+    }
+    .add-listing,
+    .back-to-home {
+      margin-top: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .footer a {
+      color: #007bff;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <!-- <div class="footer">
         <p>© 2025 Wanderlust. All rights reserved.</p>
         <p><a href="/">Home</a></p>
-    </div>
+    </div> -->
 </body>
-</html>
-
-        

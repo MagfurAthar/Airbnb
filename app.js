@@ -4,11 +4,19 @@ const mongoose = require("mongoose");
 // const ejs = require('ejs');
 const listing = require("./Models/listing.js");
 const path = require("path");
+const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate"); //it helps to create layouts/templets in ejs.
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method")); //used for put requests in forms
+app.engine("ejs", ejsMate); //using ejsMate to use layouts in ejs
+app.use(express.static(path.join(__dirname, "public"))); //to use static files like css, js, images etc stored in the public folder.
 
+
+
+// MongoDB connection
 const MONGO_URL = "mongodb://localhost:27017/wanderlust";
 async function main(params) {
   await mongoose.connect(MONGO_URL);
@@ -82,4 +90,38 @@ app.get("/listings/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing: foundlisting });
 });
 
+// Edit route---------------------------------
+app.get("/listings/:id/edit", async(req, res) =>{
+  let {id} = req.params;
+  const listingToEdit = await listing.findById(id);
+  res.render("listings/edit.ejs", {listing: listingToEdit});
+});
 
+// Update route---------------------------------X [this method is not working(why?)]X
+// app.put("/listings/:id", async (req, res) => {
+//   let {id} = req.params;
+//   await listing.findByIdAndUpdate(id, {...req.body.listing});
+//   console.log(res);
+//   res.redirect(`/listings/${id}`);
+// });
+
+// update route---------------------------------
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await listing.findByIdAndUpdate(id, {
+    title: req.body.title,
+    description: req.body.description,
+    image: req.body.image,
+    price: req.body.price,
+    location: req.body.location,
+    country: req.body.country,
+  });
+  // res.redirect(`/listings/${id}`);
+  res.redirect(`/listings`);
+});
+
+app.delete("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await listing.findByIdAndDelete(id);
+  res.redirect("/listings");
+});

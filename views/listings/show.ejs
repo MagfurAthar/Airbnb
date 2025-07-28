@@ -1,9 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
+<% layout('layouts/boilerplates') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+        }
+        .listing-details {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <h2>Listing Details</h2>
@@ -14,5 +56,9 @@
         <li><%= listing.location %></li>
         <li><%= listing.country %></li>
     </ul>
+
+    <h5> <a href="/listings/<%= listing.id %>/edit">Edit Listing</a> </h5>
+    <form action="/listings/<%= listing.id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Listing</button>
+    </form>
 </body>
-</html>
